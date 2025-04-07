@@ -1,0 +1,88 @@
+<div class="container d-flex align-items-center justify-content-center">
+  <div class="card shadow-lg p-4 rounded-4 border-0 work-schedule">
+    <header class="d-flex align-items-center justify-content-between mb-3">
+      <h4 class="fw-bold m-0">
+        <i class="fa-solid fa-calendar-check me-2 text-primary"></i> Work Schedule
+      </h4>
+      <button *ngIf="isScheduleExist" class="btn btn-outline-primary btn-sm" (click)="editSchedule()">
+        <i class="fa-solid fa-pen"></i> Edit
+      </button>
+    </header>
+
+    <form [formGroup]="scheduleForm" (ngSubmit)="saveSchedule()">
+      <!-- Work Days -->
+      <div class="mb-4">
+        <label class="form-label fw-bold">Work Days</label>
+        <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 g-2">
+          <div *ngFor="let day of weekdays" class="col">
+            <div class="form-check d-flex align-items-center">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                [id]="day"
+                [value]="day"
+                (change)="onDayChange(day, $event)"
+                [checked]="scheduleForm.controls['work_days'].value.includes(day)"
+                [attr.disabled]="isScheduleExist && !isEditMode ? true : null"
+              />
+              <label class="form-check-label ms-2" [for]="day">{{ day }}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Work Hours -->
+      <div class="mb-4">
+        <label class="form-label fw-bold">Work Hours</label>
+        <div class="row g-2">
+          <!-- Start Time -->
+          <div class="col-3">
+            <select class="form-select shadow-sm" formControlName="startHour" [attr.disabled]="isScheduleExist && !isEditMode ? true : null">
+              <option *ngFor="let hour of hours" [value]="hour">{{ hour }}</option>
+            </select>
+          </div>
+          <div class="col-2">
+            <select class="form-select shadow-sm" formControlName="startPeriod" [attr.disabled]="isScheduleExist && !isEditMode ? true : null">
+              <option value="AM">AM</option>
+              <option value="PM">PM</option>
+            </select>
+          </div>
+
+          <div class="col-2 d-flex align-items-center justify-content-center"> - </div>
+
+          <!-- End Time -->
+          <div class="col-3">
+            <select class="form-select shadow-sm" formControlName="endHour" [attr.disabled]="isScheduleExist && !isEditMode ? true : null">
+              <option *ngFor="let hour of hours" [value]="hour">{{ hour }}</option>
+            </select>
+          </div>
+          <div class="col-2">
+            <select class="form-select shadow-sm" formControlName="endPeriod" [attr.disabled]="isScheduleExist && !isEditMode ? true : null">
+              <option value="AM">AM</option>
+              <option value="PM">PM</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Appointment Duration -->
+      <div class="mb-4">
+        <label class="form-label fw-bold">Appointment Duration</label>
+        <select class="form-select shadow-sm" formControlName="appointment_duration" [attr.disabled]="isScheduleExist && !isEditMode ? true : null">
+          <option *ngFor="let duration of durations" [value]="duration">{{ duration }} </option>
+        </select>
+      </div>
+
+      <!-- Consultation Cost -->
+      <div class="mb-4">
+        <label class="form-label fw-bold">Consultation Cost ($)</label>
+        <input type="number" class="form-control shadow-sm" formControlName="cost" min="0" [attr.disabled]="isScheduleExist && !isEditMode ? true : null" />
+      </div>
+
+      <!-- Save Button -->
+      <button class="btn btn-primary w-100 shadow-sm" type="submit" [disabled]="!scheduleForm.valid || !isEditMode && isScheduleExist">
+        <i class="fa-solid fa-save me-2"></i> Save Schedule
+      </button>
+    </form>
+  </div>
+</div>

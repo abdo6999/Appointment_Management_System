@@ -1,0 +1,220 @@
+# 📡 Appointment Management System - Backend
+
+This is the backend implementation for the **Appointment Management System**. It provides the necessary APIs to manage users (Admin, Doctor, Patient), appointments, work schedules, and time slots. The backend is built using **Node.js**, **Express.js**, and integrates with **PostgreSQL** for data persistence.
+
+## 🛠️ Tech Stack
+
+- **Backend**: Node.js with Express.js
+- **Authentication**: JWT and Captcha integration
+- **Database**: PostgreSQL (Supabase)
+- **Utilities**: Bcrypt for password hashing
+
+## 🧩 Key Features
+
+- **Role-Based Authentication**: Ensures access to specific routes based on user roles.
+- **CRUD Operations** for **Users**, **Doctors**, **Appointments**, **Work Schedules**, and **Time Slots**.
+- **Work Schedules** management for Doctors.
+- **Time Slot** management to book appointments.
+- **Guest Appointments** creation via email without requiring authentication.
+
+## 👥 Authentication and Authorization
+
+Authentication is handled via **JWT** tokens, and access control is enforced through middleware based on roles. The `authenticate` middleware ensures that only authorized users can access specific endpoints.
+
+**Roles**:
+
+- `admin`
+- `patient`
+- `doctor`
+
+Endpoints requiring role-based access use the `authenticate` middleware. For example:
+
+```javascript
+userRouter.get("/", authenticate(["admin"]), userController.getAll);
+```
+
+In this case, only **admins** can retrieve all user details.
+
+## ⚙️ Configuration
+
+Before running the backend, you need to set up and configure the necessary environment variables.
+
+1. **Supabase Configuration**: You need to set up a Supabase account for PostgreSQL database access. Once you have your project set up in Supabase, create the following environment variables:
+
+   - `SUPABASE_URL`: URL for your Supabase project.
+   - `SUPABASE_ANON_KEY`: The anonymous key for your Supabase project.
+   - `SUPABASE_URL_LOCAL`: Local Supabase URL (if you are using a local instance).
+   - `SUPABASE_ANON_KEY_LOCAL`: Local Supabase anonymous key (if you are using a local instance).
+   - `PEPPER`: A secret string used for password salting (can be any random string).
+   - `SECRET_KEY`: A secret key for JWT token signing (used for authentication).
+   - `SECRET_REFRESH_KEY`: A secret key for JWT token refresh (used for refresh tokens).
+
+   Example `.env` file:
+
+   ```bash
+   SUPABASE_URL=your_supabase_url
+   SUPABASE_ANON_KEY=your_supabase_anon_key
+   SUPABASE_URL_LOCAL=your_local_supabase_url
+   SUPABASE_ANON_KEY_LOCAL=your_local_supabase_anon_key
+   PEPPER=your_random_salt
+   SECRET_KEY=your_jwt_secret_key
+   SECRET_REFRESH_KEY=your_jwt_refresh_secret_key
+   ```
+
+2. **Database Types Generation**: Run the following command to generate the types for the Supabase database:
+
+   ```bash
+   npx supabase gen types typescript --local > database.types.ts
+   ```
+
+3. **Environment Variables in Code**: Make sure you load your environment variables in your code using the `dotenv` package:
+
+   ```javascript
+   import { config } from "dotenv";
+   config();
+   
+   export const ENV = {
+     SUPABASE_URL: process.env.SUPABASE_URL || "",
+     SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY || "",
+     SUPABASE_URL_LOCAL: process.env.SUPABASE_URL_LOCAL || "",
+     SUPABASE_ANON_KEY_LOCAL: process.env.SUPABASE_ANON_KEY_LOCAL || "",
+     PEPPER: process.env.PEPPER || "",
+     SECRET_KEY: process.env.SECRET_KEY || "",
+     SECRET_REFRESH_KEY: process.env.SECRET_REFRESH_KEY || "",
+   };
+   ```
+
+## 🚀 Running the Backend
+
+1. Clone the repository:
+
+   ```bash
+   git clone <repository_url>
+   cd System_Back_End
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Set up your **Supabase** account and configure environment variables for database connection.
+
+4. Run the backend server:
+
+   ```bash
+   npm run watch
+   ```
+
+   This will start the server and you should be able to access the API at `http://localhost:3000` (or your specified URL).
+
+## 📂 Project Structure
+
+```
+System_Back_End/
+  ├── controllers/          # Controllers for each module (appointments, users, etc.)
+  ├── middleware/           # Middleware like authentication
+  ├── models/               # Database models
+  ├── routes/               # API routes (users, doctors, appointments, etc.)
+  ├── utils/                # Logic and utility services
+  ├── server.js             # Entry point for the application
+  ├── database.types.ts     # Types generated for Supabase database
+  ├── .env                  # Environment variables configuration
+```
+
+## 📂 API Endpoints
+
+### **User Routes** (`/users`)
+
+- `POST /admin`: Create a new admin user.
+- `POST /doctor`: Create a new doctor user.
+- `POST /patient`: Create a new patient user.
+- `POST /signin`: Sign in an existing user.
+- `GET /status`: Get the status of the logged-in user.
+- `POST /refresh`: Refresh the JWT token for the user.
+- `GET /:id`: Get user details by ID.
+- `GET /`: Get all users.
+- `PUT /:id`: Update a user by ID.
+- `DELETE /:id`: Delete a user by ID.
+
+### **Work Schedules Routes** (`/work-schedules`)
+
+- `POST /`: Create a new work schedule.
+- `GET /doctor/:doctor_id`: Get work schedules for a specific doctor.
+- `GET /`: Get all work schedules.
+- `PUT /:id`: Update a work schedule by ID.
+- `DELETE /:id`: Delete a work schedule by ID.
+- `POST /availability`: Check if a doctor is available at a specific time.
+
+### **Time Slots Routes** (`/time-slot`)
+
+- `GET /doctor/:doctor_id`: Get time slots for a specific doctor.
+- `GET /doctor/:doctor_id/available/:appointment_date`: Get available time slots for a doctor on a given date.
+- `DELETE /:id`: Delete a time slot by ID.
+- `PUT /:id`: Update a time slot by ID.
+
+### **Doctor Routes** (`/doctors`)
+
+- `POST /`: Create a new doctor.
+- `GET /`: Get all doctors.
+- `GET /:doctorId`: Get details for a specific doctor by ID.
+- `PUT /:doctorId`: Update a doctor's information.
+- `DELETE /:doctorId`: Delete a doctor.
+
+### **Appointments Routes** (`/appointments`)
+
+- `POST /`: Create a new appointment.
+- `GET /doctor/:doctor_id`: Get appointments for a specific doctor.
+- `GET /patient/:patient_id`: Get appointments for a specific patient.
+- `GET /guest/:guest_id`: Get appointments for a guest (via email).
+- `GET /booked-slots`: Get all booked time slots.
+- `PUT /:id`: Update an appointment by ID.
+- `DELETE /:id`: Cancel an appointment by ID.
+
+## ⚙️ Middleware
+
+The **authenticate** middleware is used to protect endpoints and ensure role-based access. It checks if the user has one of the allowed roles to access the endpoint.
+
+```javascript
+const authenticate = (allowedRoles = []) => {
+  return (req, res, next) => {
+    const token = req.headers["authorization"]?.split(" ")[1];
+
+    if (!token) {
+      return res.status(401).json({ error: "Authorization token is required" });
+    }
+
+    try {
+      const decoded: any = jwt.verify(token, ENV.SECRET_KEY);
+
+      // Ensure that the decoded payload contains a role
+      if (!decoded.role) {
+        throw new UnauthorizedError("No role found in token");
+      }
+
+      // Check if the role in the token matches one of the allowed roles
+      if (!allowedRoles.includes(decoded.role)) {
+        return res
+          .status(403)
+          .json({ error: "Access denied. Insufficient permissions." });
+      }
+
+      req.user = decoded;
+      next();
+    } catch (error) {
+      if (error instanceof UnauthorizedError) {
+        return res.status(401).json({ error: error.message });
+      }
+      return res.status(401).json({ error: "Invalid or expired token" });
+    }
+  };
+};
+```
+
+This middleware is applied to routes where specific roles need to be validated:
+
+```javascript
+userRouter.get("/", authenticate(["admin"]), userController.getAll);
+```
+

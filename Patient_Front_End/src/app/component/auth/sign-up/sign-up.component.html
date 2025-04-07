@@ -1,0 +1,255 @@
+<div class="primary-color">
+  <div class="container">
+    <div
+      class=" py-5 d-flex flex-column align-items-center justify-content-center min-vh-100"
+    >
+      <div class="w-100 register justify-content-center main-bg p-5 rounded-3">
+        <div class="register-form p-lg-4 rounded">
+          <h3 class="text-center mb-4 m-3">Create Account</h3>
+          <form
+            [formGroup]="registrationForm"
+            (ngSubmit)="userRegister()"
+            novalidate
+          >
+            <div class="form-group mb-3">
+              <div
+                class="form-control input-group"
+                [ngClass]="{
+                  'is-invalid':
+                    usernameControl.invalid && usernameControl.touched
+                }"
+              >
+                <input
+                  type="text"
+                  id="username"
+                  placeholder="User name"
+                  [formControl]="usernameControl"
+                  required
+                />
+                <button class="bg-transparent">
+                  <i class="fa-solid fa-user"></i>
+                </button>
+              </div>
+              <div
+                class="invalid-feedback"
+                *ngIf="usernameControl.invalid && usernameControl.touched"
+              >
+                {{
+                  usernameControl.hasError("required")
+                    ? "User Name is required"
+                    : "Invalid User Name format"
+                }}
+              </div>
+            </div>
+
+
+            <div class="form-group mb-3">
+              <div
+                class="form-control input-group"
+                [ngClass]="{
+                  'is-invalid':
+                  nameControl.invalid && nameControl.touched
+                }"
+              >
+                <input
+                  type="text"
+                  id="name"
+                  placeholder="Name"
+                  [formControl]="nameControl"
+                  required
+                />
+                <button class="bg-transparent">
+                  <i class="fa-solid fa-user"></i>
+                </button>
+              </div>
+              <div
+                class="invalid-feedback"
+                *ngIf="nameControl.invalid && nameControl.touched"
+              >
+                {{
+                  usernameControl.hasError("required")
+                    ? "Name is required"
+                    : "Invalid Name format"
+                }}
+              </div>
+            </div>
+
+            <!-- Email Field -->
+            <div class="form-group mb-3">
+              <div
+                class="form-control input-group"
+                [ngClass]="{
+                  'is-invalid': emailControl.invalid && emailControl.touched
+                }"
+              >
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="Email"
+                  [formControl]="emailControl"
+                  required
+                />
+                <button class="bg-transparent">
+                  <i class="fa-solid fa-envelope"></i>
+                </button>
+              </div>
+              <div
+                class="invalid-feedback"
+                *ngIf="emailControl.invalid && emailControl.touched"
+              >
+                {{
+                  emailControl.hasError("required")
+                    ? "Email is required"
+                    : "Invalid email format"
+                }}
+              </div>
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-group mb-3 password">
+              <div
+                class="form-control input-group"
+                [ngClass]="{
+                  'is-invalid':
+                    passwordControl.invalid && passwordControl.touched
+                }"
+              >
+                <input
+                  [type]="showPassword ? 'text' : 'password'"
+                  class="password"
+                  id="password"
+                  placeholder="Password"
+                  [formControl]="passwordControl"
+                  required
+                />
+                <button
+                  type="button"
+                  class="bg-transparent"
+                  (click)="showPassword = !showPassword"
+                >
+                  <i
+                    class="fa-solid"
+                    [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"
+                  ></i>
+                </button>
+              </div>
+
+              <ul class="list-unstyled" *ngIf="passwordControl.touched">
+                <li
+                  *ngIf="getPasswordValidationClasses('^.{8,}$') !== 'd-none'"
+                >
+                  <i
+                    class="fa-solid"
+                    [ngClass]="getPasswordValidationClasses('^.{8,}$')"
+                  ></i>
+                  At least 8 characters long
+                </li>
+                <li *ngIf="getPasswordValidationClasses('[A-Z]') !== 'd-none'">
+                  <i
+                    class="fa-solid"
+                    [ngClass]="getPasswordValidationClasses('[A-Z]')"
+                  ></i>
+                  Must include an uppercase letter
+                </li>
+                <li *ngIf="getPasswordValidationClasses('[a-z]') !== 'd-none'">
+                  <i
+                    class="fa-solid"
+                    [ngClass]="getPasswordValidationClasses('[a-z]')"
+                  ></i>
+                  Must include a lowercase letter
+                </li>
+                <li *ngIf="getPasswordValidationClasses('[0-9]') !== 'd-none'">
+                  <i
+                    class="fa-solid"
+                    [ngClass]="getPasswordValidationClasses('[0-9]')"
+                  ></i>
+                  Must include a number
+                </li>
+                <li
+                  *ngIf="
+                    getPasswordValidationClasses('[^a-zA-Z0-9]') !== 'd-none'
+                  "
+                >
+                  <i
+                    class="fa-solid"
+                    [ngClass]="getPasswordValidationClasses('[^a-zA-Z0-9]')"
+                  ></i>
+                  Must include a special character
+                </li>
+              </ul>
+            </div>
+
+            <div class="form-group">
+              <div
+                class="input-group form-control "
+                [ngClass]="{
+                  'is-invalid':
+                  confirmPasswordControl.errors?.['passwordMismatch'] && confirmPasswordControl.touched
+                }"
+              >
+                <input
+                  [type]="showConfirmPassword ? 'text' : 'password'"
+                  id="confirmPassword"
+                  class="password"
+                  placeholder="Confirm password"
+                  [formControl]="confirmPasswordControl"
+                  required
+                />
+                <button
+                  type="button"
+                  (click)="showConfirmPassword = !showConfirmPassword"
+                  class="bg-transparent"
+                >
+                  <i
+                    class="fa-solid"
+                    [ngClass]="showConfirmPassword ? 'fa-eye' : 'fa-eye-slash'"
+                  ></i>
+                </button>
+              </div>
+
+              <p
+                *ngIf="confirmPasswordControl.errors?.['passwordMismatch'] && confirmPasswordControl.touched"
+                class="invalid-feedback"
+              >
+                Passwords do not match.
+              </p>
+            </div>
+            <div class="form-group my-4">
+              <re-captcha
+                formControlName="recaptcha"
+                siteKey="6Lfl3QwrAAAAAM0iIl8nJAifGYpq7_RmUlUOsatF"
+                (resolved)="onCaptchaResolved($event)"
+              ></re-captcha>
+              <div class="invalid-feedback d-block" *ngIf="registrationForm.get('recaptcha')?.invalid && registrationForm.get('recaptcha')?.touched">
+                Please verify that you're not a robot.
+              </div>
+            </div>
+            <!-- Submit Button -->
+            <div class="text-center mt-4">
+              <button type="submit" class="btn btn-primary primary-color w-100 p-3">
+                Sign Up
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Login Link -->
+        <div class="text-center mt-3">
+          <p class="mb-0">
+            Already have an account?
+            <a routerLink="/login" class="text-primary">Login</a>
+          </p>
+        </div>
+        <div class="text-center mt-3 mb-2">
+          <span class="text-muted">or</span>
+        </div>
+
+        <div class="text-center">
+          <button routerLink="/guest" class="btn btn-outline-secondary w-100 p-2">
+            Continue as Guest
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

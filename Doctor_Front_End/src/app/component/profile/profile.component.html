@@ -1,0 +1,53 @@
+<div class="container mt-4">
+  <div class="card shadow-sm rounded-4 border-0 p-4 bg-light">
+    <!-- Profile Image or Initials -->
+    <div class="d-flex justify-content-center mb-4">
+      <img *ngIf="doctor.image" [src]="doctor.image" alt="Doctor Image" class="rounded-circle w-100" style="max-width: 120px; height: 120px; object-fit: cover;" />
+      <div *ngIf="!doctor.image" class="bg-primary text-white rounded-circle d-flex justify-content-center align-items-center" style="width: 120px; height: 120px; font-size: 2rem;">
+        <span class="fw-bold">{{ doctor.name.charAt(0) }}</span>
+      </div>
+    </div>
+    
+    <!-- Image Upload Section -->
+    <div class="mb-3">
+      <label for="imageUpload" class="form-label fw-bold">Upload Profile Picture</label>
+      <input type="file" class="form-control" id="imageUpload" (change)="onImageUpload($event)" />
+    </div>
+
+    <!-- Doctor's Profile Fields -->
+    <div>
+      <!-- Doctor Name -->
+      <div class="mb-3">
+        <label for="doctorName" class="form-label fw-bold">Name</label>
+        <input *ngIf="isEditing" type="text" class="form-control" id="doctorName" [(ngModel)]="doctor.name" />
+        <div *ngIf="!isEditing">{{ doctor.name }}</div>
+      </div>
+
+      <!-- Specialization -->
+      <div class="mb-3">
+        <label for="doctorSpecialization" class="form-label fw-bold">Specialization</label>
+        <input *ngIf="isEditing" type="text" class="form-control" id="doctorSpecialization" [(ngModel)]="doctor.specialization" />
+        <div *ngIf="!isEditing">{{ doctor.specialization }}</div>
+      </div>
+
+      <!-- Bio -->
+      <div class="mb-3">
+        <label for="doctorBio" class="form-label fw-bold">Bio</label>
+        <textarea *ngIf="isEditing" class="form-control" id="doctorBio" rows="3" [(ngModel)]="doctor.bio"></textarea>
+        <div *ngIf="!isEditing">{{ doctor.bio }}</div>
+      </div>
+
+      <!-- Contact Info (optional) -->
+      <div class="mb-3">
+        <label for="doctorContact" class="form-label fw-bold">Contact</label>
+        <input *ngIf="isEditing" type="text" class="form-control" id="doctorContact" [(ngModel)]="doctor.contact" />
+        <div *ngIf="!isEditing">{{ doctor.contact }}</div>
+      </div>
+
+      <!-- Button to toggle between Edit and View Mode -->
+      <button class="btn btn-outline-primary w-100" (click)="toggleEdit()">
+        <i class="fa-solid" [ngClass]="isEditing ? 'fa-save' : 'fa-edit'"></i> {{ isEditing ? 'Save' : 'Edit' }}
+      </button>
+    </div>
+  </div>
+</div>

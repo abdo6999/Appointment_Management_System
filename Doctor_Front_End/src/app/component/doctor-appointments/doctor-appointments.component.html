@@ -1,0 +1,60 @@
+<div class="container mt-4">
+  <div class="card shadow-sm rounded-4 border-0 p-4 bg-light">
+    <h3 class="mb-4">Booked Appointments</h3>
+
+    <div *ngFor="let appointment of appointments" class="appointment-card mb-3 p-3 rounded bg-white shadow-sm">
+      <div class="d-flex justify-content-between align-items-start flex-column flex-md-row">
+
+        <!-- Appointment & Patient/Guest Info -->
+        <div class="me-3 w-100">
+          <h5 class="fw-bold">
+            {{ appointment.patients?.users?.name || 'Guest Appointment' }}
+          </h5>
+
+          <p class="m-0 text-muted">
+            Specialization: {{ appointment.doctors?.specialization || 'N/A' }}
+          </p>
+          <p class="m-0 text-muted">
+            Date: {{ appointment.appointment_date | date: 'mediumDate' }}
+          </p>
+          <p class="m-0 text-muted">
+            Time: {{ appointment.start_time }} - {{ appointment.end_time }}
+          </p>
+
+          <!-- Patient Details (if available) -->
+          <ng-container *ngIf="appointment.patients; else guestInfo">
+            <div class="mt-2">
+              <h6 class="fw-bold">Patient Info:</h6>
+              <p class="m-0"><strong>Email:</strong> {{ appointment.patients?.users?.email || 'N/A' }}</p>
+              <p class="m-0"><strong>DOB:</strong> {{ appointment.patients?.date_of_birth || 'N/A' }}</p>
+              <p class="m-0"><strong>Gender:</strong> {{ appointment.patients?.gender || 'N/A' }}</p>
+              <p class="m-0"><strong>Emergency Contact:</strong> {{ appointment.patients?.emergency_contact || 'N/A' }}</p>
+              <p class="m-0"><strong>Medical History:</strong> {{ appointment.patients?.medical_history || 'N/A' }}</p>
+            </div>
+          </ng-container>
+
+          <!-- Guest Fallback -->
+          <ng-template #guestInfo>
+            <div class="mt-2">
+              <h6 class="fw-bold">Guest Info:</h6>
+              <p class="m-0"><strong>Email:</strong> {{ appointment.guest_email || 'N/A' }}</p>
+            </div>
+          </ng-template>
+        </div>
+
+        <!-- Status Management -->
+        <div class="d-flex align-items-center gap-3 mt-3 mt-md-0">
+          <span class="badge bg-{{ appointment.status === 'pending' ? 'warning' : appointment.status === 'confirmed' ? 'success' : 'danger' }}">
+            {{ appointment.status }}
+          </span>
+          <select class="form-select form-select-sm" [(ngModel)]="appointment.status" (change)="updateStatus(appointment)">
+            <option value="pending">Pending</option>
+            <option value="confirmed">Confirmed</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

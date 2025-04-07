@@ -1,3 +1,18 @@
+### Project Approach and Challenges
+
+I approached this project with the intention of building a comprehensive system, which led to spending considerable time on certain areas, leaving some planned features incomplete or unused as the project deadline approached. Due to this, I had to write parts of the project that I am not entirely satisfied with, such as inconsistencies in organization, lack of clarity, and missing features across different sections. Despite these challenges, I am still determined to submit the project, although I acknowledge there are areas where improvements could be made. I look forward to your honest feedback, which will help me better understand my weaknesses and improve in the future.
+
+### How to Use the Project
+
+1. **Backend Setup**: Start by running the backend as per the provided instructions.
+2. **User Creation**: Execute the seed command to create initial users.
+3. **Doctor Section**: Open the Doctor section to set their working hours. These will be saved in the system.
+4. **Appointment Booking**: Patients can book appointments with the doctor via the Patient section.
+5. **View Appointments**: Both the patient and doctor can view the scheduled appointments.
+
+
+
+
 # 🩺 Appointment Management System
 
 An Appointment Management System built with a Full-Stack architecture. This app allows **Admins**, **Doctors**, and **Patients** to manage and book appointments through a secured and organized workflow.
@@ -14,74 +29,67 @@ An Appointment Management System built with a Full-Stack architecture. This app 
 - User authentication (Login/Register) with Captcha
 - Role-based access (Admin, Doctor, Patient)
 - Time-slot based appointments (One per hour: 1:00 PM, 2:00 PM, etc.)
-- Admin control panel for full management
 - Doctors update appointment statuses
 - Guests can create appointments using just an email
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: HTML, CSS, JavaScript (or optionally Angular/React)
+- **Frontend**: Angular
 - **Backend**: Node.js with Express.js
-- **Database**: PostgreSQL or MongoDB
+- **Database**: PostgreSQL with Supabase
 - **Authentication**: JWT or session-based with Captcha integration
 - **Others**: Bootstrap for styling, bcrypt for password hashing
 
----
+## 📂 Project Structure
 
-## ✅ To-Do List
+The project is divided into frontend and backend directories, each handling different parts of the system.
 
-### 1. **Setup & Initialization**
-- [ ] Set up the project folder structure (client & server)
-- [ ] Initialize `npm` in the backend folder
-- [ ] Install backend dependencies: `express`, `bcrypt`, `jsonwebtoken`, `dotenv`, `pg` or `mongoose`, etc.
-- [ ] Set up database schema for Users, Appointments
+### Frontend Directories:
+- **admin_Front_End/**: Admin panel interface for managing appointments, doctors, and patients.
+- **doctor_Front_End/**: Doctor interface for managing and viewing appointments.
+- **patient_Front_End/**: Patient interface for registration, login, and appointment creation.
 
-### 2. **Backend API**
-#### Auth
-- [ ] Register endpoint for Patient
-- [ ] Login endpoint for Admin, Doctor, Patient
-- [ ] Add Captcha verification
-- [ ] JWT-based auth middleware
+### Backend Directory:
+- **System_Back_End/**: Server-side code for handling authentication, appointment logic, database interactions, and role management.
 
-#### User Management
-- [ ] Admin: CRUD for Patients & Doctors
-- [ ] Patients: View appointments
-- [ ] Doctors: View & update appointment status
+## 🚀 Getting Started
 
-#### Appointments
-- [ ] Appointment creation (Patient or Admin)
-- [ ] One appointment per time-slot constraint
-- [ ] Appointment listing by role (Patient, Doctor, Admin)
-- [ ] Appointment status update (Doctor)
+1. Clone the repository:
+   ```bash
+   git clone <repository_url>
+   cd Appointment-Management-System
+   ```
 
-### 3. **Frontend**
-- [ ] Login & Register Forms with Captcha
-- [ ] Admin Dashboard:
-  - [ ] Manage Doctors
-  - [ ] Manage Patients
-  - [ ] Manage Appointments
-- [ ] Doctor Panel:
-  - [ ] View Appointments
-  - [ ] Update Status
-- [ ] Patient Panel:
-  - [ ] View Appointments
-  - [ ] Create Appointment
-- [ ] Guest Appointment Form
+2. **Frontend Setup**:
+   - Install Angular dependencies:
+     ```bash
+     cd admin_Front_End
+     npm install
+     ```
+     Repeat the installation for `doctor_Front_End` and `patient_Front_End`.
 
-### 4. **Captcha Integration**
-- [ ] Use Google reCAPTCHA or custom math-based Captcha
-- [ ] Validate before form submission (both client & server)
+3. **Backend Setup**:
+   - Install Node.js dependencies:
+     ```bash
+     cd System_Back_End
+     npm install
+     ```
+   - Setup your **Supabase** account and database.
 
-### 5. **Validation & Error Handling**
-- [ ] Validate forms (frontend + backend)
-- [ ] Handle errors (e.g., overlapping time slots)
+4. **Run the Application**:
+   - Run the frontend:
+     ```bash
+     cd <frontend_directory>
+     ng serve
+     ```
+   - Run the backend:
+     ```bash
+     npm run build
+     cd /dist
+     node .
+     ```
 
-### 6. **Deployment**
-- [ ] Use Railway/Render/Heroku for backend
-- [ ] Use Vercel/Netlify for frontend
-- [ ] Configure environment variables for production
+## ⚙️ Configuration
 
----
-
-## 📂 Project Structure (Example)
+- Make sure to update environment variables in both frontend and backend for API endpoints, database configurations, and Captcha keys.
 

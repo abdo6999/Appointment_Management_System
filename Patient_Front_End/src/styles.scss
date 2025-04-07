@@ -1,0 +1,77 @@
+
+
+:root {
+  --fs-lg:20px;
+  --fs-md:18px;
+  --fs-normal:16px;
+  --fs-sm:14px;
+  --lineheight-lg:28px;
+  --lineheight-md:25.2px;
+  --lineheight-normal:22.4px;
+  --lineheight-sm:19.6px;
+  --primary-color: rgb(51, 120, 255);
+  --text-color-gray:rgb(83,90,111);
+  --text-color-light:rgb(255,255,255);
+  --main-bg:rgb(226, 222, 222);
+}
+// --text-color:rgb(35,40,57)
+// --text-color:rgb(143,149,160)
+
+.fs-lg {
+  font-size: var(--fs-lg);
+}
+.fs-md {
+  font-size: var(--fs-md);
+}
+.fs-normal {
+  font-size: var(--fs-normal);
+}
+.fs-sm {
+  font-size: var(--fs-sm);
+}
+
+.lineheight-lg {
+  line-height: var(--lineheight-lg);
+}
+.lineheight-md {
+  line-height: var(--lineheight-md);
+}
+.lineheight-normal {
+  line-height: var(--lineheight-normal);
+}
+.lineheight-sm {
+  line-height: var(--lineheight-sm);
+}
+.primary-color {
+  background-color: var(--primary-color );
+}
+button.primary-color {
+  color: var(--text-color-light);
+  line-height: 1;
+}
+.text-color-gray {
+  color: var(--text-color-gray);
+}
+.text-color-light {
+  color: var(--text-color-light);
+}
+.main-bg {
+  background-color: var(--main-bg);
+}
+body,html {
+  padding: 0;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  min-height: calc( 100vh - 66px);
+  background-color: var(--main-bg);
+  position: relative;
+
+}
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  min-height: calc( 100vh - 66px);
+
+}

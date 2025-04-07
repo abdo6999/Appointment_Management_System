@@ -1,0 +1,55 @@
+
+<div class="primary-color">
+  <div class="container">
+    <div
+      class=" py-5 d-flex flex-column align-items-center justify-content-center min-vh-100"
+    >
+      <div class="w-100 register justify-content-center main-bg p-5 rounded-3">
+        <div class="register-form p-lg-4 rounded">
+          <h3 class="text-center mb-4 m-3">Create A Guest Account</h3>
+          <form
+            [formGroup]="guestForm"
+            (ngSubmit)="guestRegister()"
+            novalidate
+          >
+            <div class="form-group mb-3">
+              <div
+                class="form-control input-group"
+                [ngClass]="{
+                  'is-invalid': emailControl.invalid && emailControl.touched
+                }"
+              >
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="Email"
+                  [formControl]="emailControl"
+                  required
+                />
+                <button class="bg-transparent">
+                  <i class="fa-solid fa-envelope"></i>
+                </button>
+              </div>
+              <div
+                class="invalid-feedback"
+                *ngIf="emailControl.invalid && emailControl.touched"
+              >
+                {{
+                  emailControl.hasError("required")
+                    ? "Email is required"
+                    : "Invalid email format"
+                }}
+              </div>
+            </div>
+            <div class="text-center mt-4">
+              <button type="submit" class="btn btn-primary primary-color w-100 p-3">
+                Continue as Guest
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

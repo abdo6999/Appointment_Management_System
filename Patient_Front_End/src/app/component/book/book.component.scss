@@ -1,0 +1,49 @@
+
+
+::ng-deep {
+  .mat-mdc-card {
+    box-shadow: none !important;
+    min-width: min(100%,500px);
+  }
+  .mat-calendar-body-today:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
+    border:none;
+  }
+  .mat-calendar-body-cell-content {
+    border-radius: 0 !important;
+  }
+  .mdc-button__label span {
+    display:inline-block;
+    text-transform: lowercase;
+    font-size: var(--fs-lg);
+  }
+  .mdc-button__label span:first-letter {
+    text-transform: uppercase;
+  }
+  tr[aria-hidden] .mat-calendar-body-label {
+    display: none;
+  }
+  .mat-calendar-body-label {
+    color: transparent !important;
+  }
+}
+
+.time-btn {
+  background-color: white;
+  border: 1px solid var(--bs-primary);
+  padding: 10px;
+  font-size: 14px;
+  text-align: center;
+  border-radius: 8px;
+  transition: background 0.3s ease, color 0.3s ease;
+
+  &:hover {
+    background-color: var(--bs-primary);
+    color: white;
+  }
+}
+
+
+.active {
+  background-color: var(--primary-color);
+  color:white
+}

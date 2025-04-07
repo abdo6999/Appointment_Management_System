@@ -1,0 +1,50 @@
+<div class="container mt-3">
+  <h3 class="fw-bold mb-4 text-center">Book Appointment</h3>
+  <p>Selected Date:</p>
+  <div class="d-flex align-items-center justify-content-center">
+    <div class="card w-100 d-flex align-items-center justify-content-center shadow-sm rounded-4 border-0 p-4">
+      <mat-card class="demo-inline-calendar-card m-2">
+        <mat-calendar [(selected)]="selected" (selectedChange)="onDateChange()"></mat-calendar>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="m-2">
+    <label class="form-label d-block fw-bold">Select Time</label>
+    <div class="row g-2">
+      <ng-container *ngIf="timeSlots.length > 0; else noTimeSlots">
+        <div
+          class="col-6 col-sm-4 col-md-3 col-lg-3"
+          *ngFor="let time of timeSlots"
+          [id]="time.id"
+        >
+          <button
+            class="btn time-btn w-100"
+            [disabled]="isBooked(time.id)"
+            [class.active]="selectedSlotId === time.id"
+            (click)="selectSlot(time.id)"
+          >
+            {{ time.slot_start_time }}
+          </button>
+        </div>
+      </ng-container>
+
+      <ng-template #noTimeSlots>
+        <p>No available time slots for this date.</p>
+      </ng-template>
+    </div>
+  </div>
+
+
+
+  <!-- Set Appointment Button -->
+  <div class="text-center mb-4">
+    <button
+      class="btn btn-primary w-100"
+      [disabled]="!selected || !selectedSlotId"
+      (click)="submitAppointment()"
+    >
+      Set Appointment
+    </button>
+  </div>
+</div>

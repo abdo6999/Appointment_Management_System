@@ -1,0 +1,60 @@
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Doctor Registration Form</h2>
+  <form [formGroup]="doctorForm" (ngSubmit)="onSubmit()" class="row g-3">
+
+    <div class="col-md-6">
+      <label for="name" class="form-label">Name</label>
+      <input formControlName="name" type="text" class="form-control" placeholder="Enter your name" />
+    </div>
+
+    <div class="col-md-6">
+      <label for="email" class="form-label">Email</label>
+      <input formControlName="email" type="email" class="form-control" placeholder="Enter your email" />
+    </div>
+
+    <div class="col-md-6">
+      <label for="username" class="form-label">Username</label>
+      <input formControlName="username" type="text" class="form-control" placeholder="Enter your username" />
+    </div>
+
+    <div class="col-md-6">
+      <label for="password" class="form-label">Password</label>
+      <input formControlName="password" type="password" class="form-control" placeholder="Enter your password" />
+    </div>
+
+    <div class="col-md-6">
+      <label for="phone" class="form-label">Phone</label>
+      <input formControlName="phone" type="text" class="form-control" placeholder="Enter your phone number" />
+    </div>
+
+    <div class="col-md-6">
+      <label for="specialization" class="form-label">Specialization</label>
+      <input formControlName="specialization" type="text" class="form-control" placeholder="Enter your specialization" />
+    </div>
+
+    <div class="col-md-6">
+      <label for="bio" class="form-label">Bio</label>
+      <textarea formControlName="bio" class="form-control" rows="3" placeholder="Tell us about yourself"></textarea>
+    </div>
+
+    <div class="col-md-6">
+      <label for="experience_years" class="form-label">Years of Experience</label>
+      <input formControlName="experience_years" type="number" class="form-control" placeholder="Enter your years of experience" />
+    </div>
+
+    <div class="col-md-6">
+      <label for="clinic_address" class="form-label">Clinic Address</label>
+      <input formControlName="clinic_address" type="text" class="form-control" placeholder="Enter clinic address" />
+    </div>
+
+    <div class="col-md-6">
+      <label for="consultation_fee" class="form-label">Consultation Fee</label>
+      <input formControlName="consultation_fee" type="number" class="form-control" placeholder="Enter consultation fee" />
+    </div>
+
+    <div class="col-12 text-center">
+      <button type="submit" class="btn btn-primary" [disabled]="doctorForm.invalid">Submit</button>
+    </div>
+
+  </form>
+</div>

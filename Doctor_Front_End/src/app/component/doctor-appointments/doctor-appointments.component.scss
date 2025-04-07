@@ -1,0 +1,21 @@
+.appointment-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  transition: all 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.appointment-card .badge {
+  font-size: 0.875rem;
+}
+
+button {
+  width: 100%;
+}
+
+.appointment-card .me-3 {
+  max-width: 70%;
+}

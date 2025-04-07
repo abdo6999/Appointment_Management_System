@@ -1,0 +1,37 @@
+.navbar {
+  position: sticky;
+  bottom: 0;
+  // left: 50%;
+  // transform: translateX(-50%);
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  background-color: rgba($color: var(--main-bg), $alpha: 0.25);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+  height: 66px;
+}
+
+.navbar-nav {
+  flex-direction: row;
+  gap: 14px;
+}
+
+li {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+@media (max-width: 576px) {
+  .navbar-nav {
+    gap: 0px;
+    * {
+      font-size: var(--fs-sm);
+    }
+  }
+
+}
